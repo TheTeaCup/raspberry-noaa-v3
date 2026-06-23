@@ -155,7 +155,7 @@ sudo apt install git -y
 # clone repository
 cd $HOME
 git clone --depth 1 https://github.com/jekhokie/raspberry-noaa-v2.git
-cd raspberry-noaa-v2/
+cd raspberry-noaa-v3/
 
 # update your settings file to match your location, gain and other setup-specific settings
 nano config/settings.yml

@@ -29,8 +29,8 @@ if [ $EUID -eq 0 ]; then
 fi
 
 # verify the repo exists as expected in the home directory
-if [ ! -e "$HOME/raspberry-noaa-v2" ]; then
-  die "Please clone https://github.com/jekhokie/raspberry-noaa-v2 to your home directory"
+if [ ! -e "$HOME/raspberry-noaa-v3" ]; then
+  die "Please clone https://github.com/TheTeaCup/raspberry-noaa-v3 to your home directory"
 fi
 
 # check if this is a new install or an upgrade based on modprobe settings
