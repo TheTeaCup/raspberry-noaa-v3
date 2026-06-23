@@ -24,9 +24,9 @@ log_finished() {
 }
 
 # run as a normal user
-if [ $EUID -eq 0 ]; then
-  die "Don't use sudo when running this script, quitting..."
-fi
+# if [ $EUID -eq 0 ]; then
+#   die "Don't use sudo when running this script, quitting..."
+# fi
 
 # verify the repo exists as expected in the home directory
 if [ ! -e "$HOME/raspberry-noaa-v3" ]; then
@@ -75,7 +75,7 @@ else
 fi
 
 log_running "Running Ansible to install and/or update your raspberry-noaa-v2..."
-ansible-playbook -K -i ansible/hosts --extra-vars "@config/settings.yml" ansible/site.yml -e "target_user=$USER system_architecture=$(dpkg --print-architecture)"
+ansible-playbook -i ansible/hosts --extra-vars "@config/settings.yml" ansible/site.yml -e "target_user=$USER system_architecture=$(dpkg --print-architecture)"
 if [ $? -eq 0 ]; then
   log_done "  Ansible apply complete!"
 else
