@@ -197,8 +197,8 @@
 
 - name: Create WXtoImg symbolic link for ARM64 architecture
   file:
-    src: "/home/{{ target_user }}/raspberry-noaa-v2/software/wxtoimg-armhf-2.11.2-beta.deb"
-    dest: "/home/{{ target_user }}/raspberry-noaa-v2/software/wxtoimg-arm64-2.11.2-beta.deb"
+    src: "/home/{{ target_user }}/raspberry-noaa-v3/software/wxtoimg-armhf-2.11.2-beta.deb"
+    dest: "/home/{{ target_user }}/raspberry-noaa-v3/software/wxtoimg-arm64-2.11.2-beta.deb"
     state: link
   when: system_architecture == 'arm64'
 
@@ -232,71 +232,71 @@
 
 # !! lowkey i can remove this since i'll only be using satdump !!
 
-- name: Check if MeteorDemod is installed
-  stat:
-    path: /usr/local/bin/meteordemod
-  register: meteor_demod_installed
-  changed_when: false
+# - name: Check if MeteorDemod is installed
+#   stat:
+#     path: /usr/local/bin/meteordemod
+#   register: meteor_demod_installed
+#   changed_when: false
 
-- name: Clone MeteorDemod repository if not installed
-  git:
-    repo: https://github.com/Digitelektro/MeteorDemod.git
-    dest: /home/{{ target_user }}/MeteorDemod
-    version: origin/master
-    depth: 1
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
-  ignore_errors: yes
+# - name: Clone MeteorDemod repository if not installed
+#   git:
+#     repo: https://github.com/Digitelektro/MeteorDemod.git
+#     dest: /home/{{ target_user }}/MeteorDemod
+#     version: origin/master
+#     depth: 1
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+#   ignore_errors: yes
 
-- name: Update MeteorDemod submodules
-  command: git submodule update --init --recursive
-  args:
-    chdir: /home/{{ target_user }}/MeteorDemod
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Update MeteorDemod submodules
+#   command: git submodule update --init --recursive
+#   args:
+#     chdir: /home/{{ target_user }}/MeteorDemod
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Create build directory
-  file:
-    path: /home/{{ target_user }}/MeteorDemod/build
-    state: directory
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Create build directory
+#   file:
+#     path: /home/{{ target_user }}/MeteorDemod/build
+#     state: directory
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Build MeteorDemod
-  command: cmake ../
-  args:
-    chdir: /home/{{ target_user }}/MeteorDemod/build
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Build MeteorDemod
+#   command: cmake ../
+#   args:
+#     chdir: /home/{{ target_user }}/MeteorDemod/build
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Configure the OpenCV library path
-  become: yes
-  command: ldconfig
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Configure the OpenCV library path
+#   become: yes
+#   command: ldconfig
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Make MeteorDemod
-  command: make -j3
-  args:
-    chdir: /home/{{ target_user }}/MeteorDemod/build
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Make MeteorDemod
+#   command: make -j3
+#   args:
+#     chdir: /home/{{ target_user }}/MeteorDemod/build
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Install MeteorDemod
-  become: yes
-  command: make install
-  args:
-    chdir: /home/{{ target_user }}/MeteorDemod/build
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Install MeteorDemod
+#   become: yes
+#   command: make install
+#   args:
+#     chdir: /home/{{ target_user }}/MeteorDemod/build
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Set ownership of configuration directory
-  become: yes
-  file:
-    path: /home/{{ target_user }}/.config/meteordemod
-    owner: "{{ target_user }}"
-    group: "{{ target_user }}"
-    recurse: yes
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Set ownership of configuration directory
+#   become: yes
+#   file:
+#     path: /home/{{ target_user }}/.config/meteordemod
+#     owner: "{{ target_user }}"
+#     group: "{{ target_user }}"
+#     recurse: yes
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
-- name: Clean up
-  file:
-    path: /home/{{ target_user }}/MeteorDemod
-    state: absent
-  when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
+# - name: Clean up
+#   file:
+#     path: /home/{{ target_user }}/MeteorDemod
+#     state: absent
+#   when: meteor_demod_installed.stat.exists is not defined or meteor_demod_installed.stat.exists == False
 
 # - name: Check if libbrcmGLESV2.50 link exists
 #   stat:
