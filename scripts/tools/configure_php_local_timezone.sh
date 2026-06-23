@@ -10,7 +10,7 @@
 ##################################################################################################################
 # Lets setup a local variable so we can generate the required syntax to be inserted into the index.php file
 
-v_PHP_FILE="$HOME/raspberry-noaa-v2/webpanel/public/index.php"
+v_PHP_FILE="$HOME/raspberry-noaa-v3/webpanel/public/index.php"
 local_tz=$(timedatectl | grep "Time zone" | awk -F" " '{print $3}')
 insert_php_line=$(echo "date_default_timezone_set('$local_tz');")
 

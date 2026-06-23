@@ -51,13 +51,13 @@ secs_to_human() {
 }
 
 LANG=POSIX
-VALIDATION_LOG=/var/log/raspberry-noaa-v2/verification.log
-PERMISSIONS_LIST=/home/$USER/raspberry-noaa-v2/scripts/tools/verification_tool/config/permissions.list
-PERMISSIONS_ARM64_LIST=/home/$USER/raspberry-noaa-v2/scripts/tools/verification_tool/config/permissions_arm64.list
-PERMISSIONS_OTHER_LIST=/home/$USER/raspberry-noaa-v2/scripts/tools/verification_tool/config/permissions_other.list
-PACKAGE_LIST=/home/$USER/raspberry-noaa-v2/scripts/tools/verification_tool/config/package.list
-PACKAGE_ARM64_LIST=/home/$USER/raspberry-noaa-v2/scripts/tools/verification_tool/config/package_arm64.list
-TEST_FILES=$HOME/raspberry-noaa-v2/scripts/tools/verification_tool/test_files
+VALIDATION_LOG=/var/log/raspberry-noaa-v3/verification.log
+PERMISSIONS_LIST=/home/$USER/raspberry-noaa-v3/scripts/tools/verification_tool/config/permissions.list
+PERMISSIONS_ARM64_LIST=/home/$USER/raspberry-noaa-v3/scripts/tools/verification_tool/config/permissions_arm64.list
+PERMISSIONS_OTHER_LIST=/home/$USER/raspberry-noaa-v3/scripts/tools/verification_tool/config/permissions_other.list
+PACKAGE_LIST=/home/$USER/raspberry-noaa-v3/scripts/tools/verification_tool/config/package.list
+PACKAGE_ARM64_LIST=/home/$USER/raspberry-noaa-v3/scripts/tools/verification_tool/config/package_arm64.list
+TEST_FILES=$HOME/raspberry-noaa-v3/scripts/tools/verification_tool/test_files
 mkdir -p -m 755 ${TEST_FILES}/tmp
 declare -A levels=([PASS]=1 [FAIL]=2 [INFO]=3)
 log_level=${LOG_LEVEL}
@@ -241,9 +241,9 @@ loggit "INFO" "*************************************************"
 loggit "INFO" "*** Checking RN2 crontab jobs ***"
 loggit "INFO" "*************************************************"
 
-cronjob1="1 0 * * * ${HOME}/raspberry-noaa-v2/scripts/schedule.sh -t"
-cronjob2="@reboot ${HOME}/raspberry-noaa-v2/scripts/schedule.sh"
-cronjob3="@reboot ${HOME}/raspberry-noaa-v2/scripts/tools/scratch_perms.sh"
+cronjob1="1 0 * * * ${HOME}/raspberry-noaa-v3/scripts/schedule.sh -t"
+cronjob2="@reboot ${HOME}/raspberry-noaa-v3/scripts/schedule.sh"
+cronjob3="@reboot ${HOME}/raspberry-noaa-v3/scripts/tools/scratch_perms.sh"
 cron1=$(crontab -l | grep -v "^#" | grep -F "${cronjob1}" | wc -l)
 cron2=$(crontab -l | grep -v "^#" | grep -F "${cronjob2}" | wc -l)
 cron3=$(crontab -l | grep -v "^#" | grep -F "${cronjob3}" | wc -l)
