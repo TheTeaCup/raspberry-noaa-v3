@@ -75,7 +75,7 @@ else
 fi
 
 log_running "Running Ansible to install and/or update your raspberry-noaa-v2..."
-ansible-playbook -i ansible/hosts --extra-vars "@config/settings.yml" ansible/site.yml -e "target_user=$USER system_architecture=$(dpkg --print-architecture)"
+ansible-playbook -K -i ansible/hosts --extra-vars "@config/settings.yml" ansible/site.yml -e "target_user=$USER system_architecture=$(dpkg --print-architecture)"
 if [ $? -eq 0 ]; then
   log_done "  Ansible apply complete!"
 else
