@@ -68,8 +68,8 @@ fi
 
 log_running "Configure ATRM rule and PHP Controller based on scheduling user..."
 if [ $? -eq 0 ]; then
-   chmod +x $HOME/raspberry-noaa-v2/scripts/tools/atrm_rule_and_removal.sh
-   $HOME/raspberry-noaa-v2/scripts/tools/atrm_rule_and_removal.sh
+   chmod +x $HOME/raspberry-noaa-v3/scripts/tools/atrm_rule_and_removal.sh
+   $HOME/raspberry-noaa-v3/scripts/tools/atrm_rule_and_removal.sh
 else
   die "  Something failed with the install - please inspect the logs above"
 fi
@@ -112,8 +112,8 @@ fi
 
 log_running "Configure PHP local time zone..."
 if [ $? -eq 0 ]; then
-   chmod +x $HOME/raspberry-noaa-v2/scripts/tools/configure_php_local_timezone.sh
-   $HOME/raspberry-noaa-v2/scripts/tools/configure_php_local_timezone.sh
+   chmod +x $HOME/raspberry-noaa-v3/scripts/tools/configure_php_local_timezone.sh
+   $HOME/raspberry-noaa-v3/scripts/tools/configure_php_local_timezone.sh
 else
   die "  Something failed with the install - please inspect the logs above"
 fi
@@ -166,7 +166,7 @@ echo ""
 echo "-------------------------------------------------------------------------------"
 log_finished "CONGRATULATIONS!"
 echo ""
-log_finished "raspberry-noaa-v2 has been successfully installed/upgraded!"
+log_finished "raspberry-noaa-v3 has been successfully installed/upgraded!"
 echo ""
 log_finished "You can view the webpanel updates by visiting the URL(s) listed in the"
 log_finished "'output web server url' and 'output web server tls url' play outputs above."
@@ -177,6 +177,6 @@ if [ $install_type == 'install' ]; then
   log_running "Reloading udev rules and trigger so correct permissions fire for SDR Dongles"
   sudo udevadm control --reload-rules && sudo udevadm trigger
   log_running "Running RN2 Verification Tool..."
-  ${HOME}/raspberry-noaa-v2/scripts/tools/verification_tool/verification.sh quick
+  ${HOME}/raspberry-noaa-v3/scripts/tools/verification_tool/verification.sh quick
   sudo reboot
 fi
