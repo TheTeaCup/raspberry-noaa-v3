@@ -108,7 +108,7 @@
 - name: annotation file (sample for modification)
   copy:
     src: annotation.html.j2_file
-    dest: {{ noaa_home }}/config/annotation/annotation.html.j2
+    dest: /{{ noaa_home }}/config/annotation/annotation.html.j2
     force: no
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -117,7 +117,7 @@
 - name: RaspbiNOAA v3 Logo
   copy:
     src: raspberry-noaa-v2-logo.png
-    dest: {{ noaa_home }}/config/annotation/raspberry-noaa-v2-logo.png
+    dest: /{{ noaa_home }}/config/annotation/raspberry-noaa-v2-logo.png
     force: yes
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -157,7 +157,7 @@
 
 - name: receive_noaa.sh ownership permissions
   file:
-    path: {{ noaa_home }}/scripts/receive_noaa.sh
+    path: /{{ noaa_home }}/scripts/receive_noaa.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -165,7 +165,7 @@
 
 - name: receive_meteor.sh ownership permissions
   file:
-    path: {{ noaa_home }}/scripts/receive_meteor.sh
+    path: /{{ noaa_home }}/scripts/receive_meteor.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -173,7 +173,7 @@
 
 - name: schedule.sh ownership permissions
   file:
-    path: {{ noaa_home }}/scripts/schedule.sh
+    path: /{{ noaa_home }}/scripts/schedule.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -181,7 +181,7 @@
 
 - name: common.sh ownership permissions
   file:
-    path: {{ noaa_home }}/scripts/common.sh
+    path: /{{ noaa_home }}/scripts/common.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
