@@ -197,8 +197,8 @@
 
 - name: Create WXtoImg symbolic link for ARM64 architecture
   file:
-    src: "/home/{{ target_user }}/raspberry-noaa-v3/software/wxtoimg-armhf-2.11.2-beta.deb"
-    dest: "/home/{{ target_user }}/raspberry-noaa-v3/software/wxtoimg-arm64-2.11.2-beta.deb"
+    src: "{{ noaa_home }}/software/wxtoimg-armhf-2.11.2-beta.deb"
+    dest: "{{ noaa_home }}/raspberry-noaa-v3/software/wxtoimg-arm64-2.11.2-beta.deb"
     state: link
   when: system_architecture == 'arm64'
 
@@ -224,7 +224,7 @@
 - name: .config directory ownership
   become: yes
   file:
-    path: /home/{{ target_user }}/.config
+    path: /{{ target_user }}/.config
     state: directory
     owner: "{{ target_user }}"
     group: "{{ target_user }}"

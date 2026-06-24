@@ -2,14 +2,14 @@
 - name: noaa environment variables
   template:
     src: noaa-v2.conf.j2
-    dest: /home/{{ target_user }}/.noaa-v2.conf
+    dest: /{{ target_user }}/.noaa-v2.conf
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0644
 
 - name: predict directory
   file:
-    path: /home/{{ target_user }}/.predict
+    path: /{{ target_user }}/.predict
     state: directory
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -18,7 +18,7 @@
 - name: predict config file
   template:
     src: predict.qth.j2
-    dest: /home/{{ target_user }}/.predict/predict.qth
+    dest: /{{ target_user }}/.predict/predict.qth
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0644
@@ -26,7 +26,7 @@
 - name: wxtoimg config file
   template:
     src: wxtoimgrc.j2
-    dest: /home/{{ target_user }}/.wxtoimgrc
+    dest: /{{ target_user }}/.wxtoimgrc
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0644
@@ -51,7 +51,7 @@
 - name: wxtoimg license terms acceptance file
   copy:
     src: wxtoimglic
-    dest: /home/{{ target_user }}/.wxtoimglic
+    dest: /{{ target_user }}/.wxtoimglic
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0644
@@ -108,7 +108,7 @@
 - name: annotation file (sample for modification)
   copy:
     src: annotation.html.j2_file
-    dest: /home/{{ target_user }}/raspberry-noaa-v3/config/annotation/annotation.html.j2
+    dest: {{ noaa_home }}/config/annotation/annotation.html.j2
     force: no
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -117,7 +117,7 @@
 - name: RaspbiNOAA v3 Logo
   copy:
     src: raspberry-noaa-v2-logo.png
-    dest: /home/{{ target_user }}/raspberry-noaa-v3/config/annotation/raspberry-noaa-v2-logo.png
+    dest: {{ noaa_home }}/config/annotation/raspberry-noaa-v2-logo.png
     force: yes
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -125,7 +125,7 @@
 
 - name: rn2_utils directory
   file:
-    path: /home/{{ target_user }}/.rn2_utils
+    path: /{{ target_user }}/.rn2_utils
     state: directory
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -134,7 +134,7 @@
 - name: rn2_backup_restore script
   copy:
     src: rn2_backup_restore.sh
-    dest: /home/{{ target_user }}/.rn2_utils
+    dest: /{{ target_user }}/.rn2_utils
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0755
@@ -142,7 +142,7 @@
 - name: rn2_uninstall script
   copy:
     src: rn2_uninstall.sh
-    dest: /home/{{ target_user }}/.rn2_utils
+    dest: /{{ target_user }}/.rn2_utils
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0755
@@ -150,14 +150,14 @@
 - name: rn2_upgrade script
   copy:
     src: rn2_upgrade.sh
-    dest: /home/{{ target_user }}/.rn2_utils
+    dest: /{{ target_user }}/.rn2_utils
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0755
 
 - name: receive_noaa.sh ownership permissions
   file:
-    path: /home/{{ target_user }}/raspberry-noaa-v3/scripts/receive_noaa.sh
+    path: {{ noaa_home }}/scripts/receive_noaa.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -165,7 +165,7 @@
 
 - name: receive_meteor.sh ownership permissions
   file:
-    path: /home/{{ target_user }}/raspberry-noaa-v3/scripts/receive_meteor.sh
+    path: {{ noaa_home }}/scripts/receive_meteor.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -173,7 +173,7 @@
 
 - name: schedule.sh ownership permissions
   file:
-    path: /home/{{ target_user }}/raspberry-noaa-v3/scripts/schedule.sh
+    path: {{ noaa_home }}/scripts/schedule.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
@@ -181,7 +181,7 @@
 
 - name: common.sh ownership permissions
   file:
-    path: /home/{{ target_user }}/raspberry-noaa-v3/scripts/common.sh
+    path: {{ noaa_home }}/scripts/common.sh
     state: file
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
