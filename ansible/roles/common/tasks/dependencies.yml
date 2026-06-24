@@ -32,6 +32,7 @@
       - libxft-dev
       - libxft2
       - libvolk-dev
+      - libasound2-dev # added for predict
       - python3-setuptools
       - python3-idna
       - python3-jsonschema
@@ -164,29 +165,39 @@
   command: pip3 install envbash==1.2.0 facebook-sdk==3.1.0 pysqlite3==0.5.1 --break-system-packages
   when: raspbian_version.stdout == 'bookworm'
 
-- name: Installing predict on PCs (amd64)
-  become: yes
-  apt:
-    deb: "{{ noaa_home }}/software/predict_2.2.3-4-b2_amd64.deb"
-    state: present
-    update_cache: no
-  when: system_architecture == 'amd64'
+# - name: Installing predict on PCs (amd64)
+#   become: yes
+#   apt:
+#     deb: "{{ noaa_home }}/software/predict_2.2.3-4-b2_amd64.deb"
+#     state: present
+#     update_cache: no
+#   when: system_architecture == 'amd64'
 
-- name: Installing predict on Raspberry Pi (armhf)
-  become: yes
-  apt:
-    deb: "{{ noaa_home }}/software/predict_2.2.5+dfsg.1-1_armhf.deb"
-    state: present
-    update_cache: no
-  when: system_architecture == 'armhf'
+# - name: Installing predict on Raspberry Pi (armhf)
+#   become: yes
+#   apt:
+#     deb: "{{ noaa_home }}/software/predict_2.2.5+dfsg.1-1_armhf.deb"
+#     state: present
+#     update_cache: no
+#   when: system_architecture == 'armhf'
   
-- name: Installing predict on Raspberry Pi (arm64)
-  become: yes
-  apt:
-    deb: "{{ noaa_home }}/software/predict_2.2.5+dfsg.1-1_arm64.deb"
-    state: present
-    update_cache: no
-  when: system_architecture == 'arm64'
+# - name: Installing predict on Raspberry Pi (arm64)
+#   become: yes
+#   apt:
+#     deb: "{{ noaa_home }}/software/predict_2.2.5+dfsg.1-1_arm64.deb"
+#     state: present
+#     update_cache: no
+#   when: system_architecture == 'arm64'
+
+# i built PREDICT from scratch:
+# sudo mkdir -p /usr/local/man/man1
+# cd /tmp
+# wget https://www.qsl.net/kd2bd/predict-2.3.1.tar.gz
+# tar -xvzf predict-2.3.1.tar.gz && cd predict-2.3.1
+# need to fix predict: open predict.c and search for int *mkdir(); and replace it with #include <sys/stat.h>
+# ./configure
+# now predict is installed.
+
   
 #- name: Installing SatDump
 #  become: yes
