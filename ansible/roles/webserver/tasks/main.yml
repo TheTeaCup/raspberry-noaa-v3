@@ -83,7 +83,7 @@
 - name: update user's home folder permissions
   become: yes
   file:
-    path: "/home/{{ target_user }}"
+    path: "/{{ target_user }}"
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: 0755
