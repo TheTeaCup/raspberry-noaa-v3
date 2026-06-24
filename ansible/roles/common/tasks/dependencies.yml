@@ -8,6 +8,7 @@
       - python3-pip
       - wget
       - curl
+      - chrony # replaces ntp
       - build-essential
       - at
       - bc
@@ -72,6 +73,17 @@
       - libxft-dev:armhf
       - libxft2:armhf
   when: system_architecture == 'arm64'
+
+# SatDump Install commands:
+# git clone https://github.com/SatDump/SatDump.git
+# cd SatDump
+# mkdir build && cd build
+# cmake -DBUILD_GUI=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
+# make -j`nproc`
+# ln -s ../resources .
+# ln -s ../satdump_cfg.json .
+# sudo make install
+# Commands from SatDump Github ^^
 
 #This was included because, for a period of time, SatDump didn't have dependencies included in the .deb file
 

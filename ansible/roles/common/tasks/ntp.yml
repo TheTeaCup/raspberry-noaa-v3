@@ -1,10 +1,10 @@
 ---
-- name: install ntp
+- name: install chrony
   become: yes
   apt:
     update_cache: no
     state: present
-    name: ntp
+    name: chrony
 
 - name: Check if systemd-timesyncd service exists
   become: yes
@@ -19,14 +19,4 @@
     state: stopped
     enabled: no
   when: timesyncd_status.rc != 4 and timesyncd_status.rc != 5      #Return code 4 means service unknown, 5 means service not found
-
-- name: ntp config file
-  become: yes
-  template:
-    src: ntp.conf.j2
-    dest: /etc/ntp.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify: restart ntp
 ...

@@ -1,7 +1,7 @@
 ---
-- name: restart ntp
+- name: restart chrony
   become: yes
   service:
-    name: ntp
+    name: chrony
     state: restarted
 ...
