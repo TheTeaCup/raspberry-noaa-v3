@@ -1,7 +1,7 @@
 ---
-- name: restart nginx
+- name: restart caddy
   become: yes
   service:
-    name: nginx
+    name: caddy
     state: restarted
 ...

@@ -143,8 +143,8 @@ backup() {
   fi
 
 
-  if [[ -f ${HOME}/raspberry-noaa-v2/config/settings.yml ]]; then
-    cp -pr ${HOME}/raspberry-noaa-v2/config/settings.yml ${BACKUP_LOC}/settings.yml
+  if [[ -f ${HOME}/raspberry-noaa-v3/config/settings.yml ]]; then
+    cp -pr ${HOME}/raspberry-noaa-v3/config/settings.yml ${BACKUP_LOC}/settings.yml
     if [[ $? -eq 0 ]]; then
       loggit "PASS" "Successfully backed up settings.yml"
     else
@@ -152,12 +152,12 @@ backup() {
       exit 1
     fi
   else
-    loggit "FAIL" "${HOME}/raspberry-noaa-v2/config/settings.yml not found, aborting..."
+    loggit "FAIL" "${HOME}/raspberry-noaa-v3/config/settings.yml not found, aborting..."
     exit
   fi
 
-  if [[ -f ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2 ]]; then
-    cp -pr ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2 ${BACKUP_LOC}/annotation.html.j2
+  if [[ -f ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2 ]]; then
+    cp -pr ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2 ${BACKUP_LOC}/annotation.html.j2
     if [[ $? -eq 0 ]]; then
       loggit "PASS" "Successfully backed up annotation.html.j2"
     else
@@ -165,12 +165,12 @@ backup() {
       exit 1
     fi
   else
-    loggit "FAIL" "${HOME}/raspberry-noaa-v2/config/settings.yml, not found, aborting..."
+    loggit "FAIL" "${HOME}/raspberry-noaa-v3/config/settings.yml, not found, aborting..."
     exit
   fi
 
-  if [[ -f ${HOME}/raspberry-noaa-v2/db/panel.db ]]; then
-    cp -pr ${HOME}/raspberry-noaa-v2/db/panel.db ${BACKUP_LOC}/panel.db
+  if [[ -f ${HOME}/raspberry-noaa-v3/db/panel.db ]]; then
+    cp -pr ${HOME}/raspberry-noaa-v3/db/panel.db ${BACKUP_LOC}/panel.db
     if [[ $? -eq 0 ]]; then
       loggit "PASS" "Successfully backed up panel.db"
     else
@@ -178,7 +178,7 @@ backup() {
       exit 1
     fi
   else
-    loggit "FAIL" "${HOME}/raspberry-noaa-v2/db/panel.db, not found, aborting..."
+    loggit "FAIL" "${HOME}/raspberry-noaa-v3/db/panel.db, not found, aborting..."
     exit
   fi
 
@@ -265,10 +265,10 @@ restore() {
 
   if [[ -f ${BACKUP_LOC}/settings.yml ]]; then
     # Keep github original
-    if [[ ! -f ${HOME}/raspberry-noaa-v2/config/settings.yml.original ]]; then
-      if [[ -f ${HOME}/raspberry-noaa-v2/config/settings.yml ]]; then
+    if [[ ! -f ${HOME}/raspberry-noaa-v3/config/settings.yml.original ]]; then
+      if [[ -f ${HOME}/raspberry-noaa-v3/config/settings.yml ]]; then
         loggit "INFO" "Backing up GitHub settings.yml as settings.yml.original"
-        cp -pr ${HOME}/raspberry-noaa-v2/config/settings.yml ${HOME}/raspberry-noaa-v2/config/settings.yml.original
+        cp -pr ${HOME}/raspberry-noaa-v3/config/settings.yml ${HOME}/raspberry-noaa-v3/config/settings.yml.original
       fi
     fi
 
@@ -282,7 +282,7 @@ restore() {
     LINE=$((${COUNT} - 1))
 
     # Skip lines starting with # and skip blank lines and list the parameter
-    cat ${HOME}/raspberry-noaa-v2/config/settings.yml.original | grep -Ev "^#|^---|^\...|^[[:blank:]]*$" | awk -F":" '{print $1}'  > /tmp/parameters_required
+    cat ${HOME}/raspberry-noaa-v3/config/settings.yml.original | grep -Ev "^#|^---|^\...|^[[:blank:]]*$" | awk -F":" '{print $1}'  > /tmp/parameters_required
     cat ${BACKUP_LOC}/settings.yml | grep -Ev "^#|^---|^\...|^[[:blank:]]*$" | awk -F":" '{print $1}'  > /tmp/parameters_found
 
     # Search for missing parameters and append them to users settings.yml file
@@ -296,13 +296,13 @@ restore() {
           echo "" >> ${NEWFILE}
           echo "# The following parameters were added" >> ${NEWFILE}
         fi
-        cat ${HOME}/raspberry-noaa-v2/config/settings.yml.original | grep ${parm} >> ${NEWFILE}
+        cat ${HOME}/raspberry-noaa-v3/config/settings.yml.original | grep ${parm} >> ${NEWFILE}
       fi
     done < ${PARMS_REQUIRED}
 
     if [[ ${NEWFILE_CREATED} -eq 1 ]]; then
       echo "..." >> ${NEWFILE}
-      cp -pr ${NEWFILE} ${HOME}/raspberry-noaa-v2/config/settings.yml
+      cp -pr ${NEWFILE} ${HOME}/raspberry-noaa-v3/config/settings.yml
       if [[ $? -eq 0 ]]; then
         loggit "PASS" "Successfully merged settings.yml"
       else
@@ -310,7 +310,7 @@ restore() {
       fi
     else
       # No new setting needing to be merged, so lets restore the users original file back
-      cp -pr ${BACKUP_LOC}/settings.yml ${HOME}/raspberry-noaa-v2/config/settings.yml
+      cp -pr ${BACKUP_LOC}/settings.yml ${HOME}/raspberry-noaa-v3/config/settings.yml
       if [[ $? -eq 0 ]]; then
         loggit "PASS" "Successfully restored settings.yml"
       else
@@ -326,12 +326,12 @@ restore() {
 
   if [[ -f ${BACKUP_LOC}/annotation.html.j2 ]]; then
     # Keep github original
-    if [[ ! -f ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2.original ]]; then
-      if [[ -f ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2 ]]; then
-        cp -pr ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2 ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2.original
+    if [[ ! -f ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2.original ]]; then
+      if [[ -f ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2 ]]; then
+        cp -pr ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2 ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2.original
       fi
     fi
-    cp -pr ${BACKUP_LOC}/annotation.html.j2 ${HOME}/raspberry-noaa-v2/config/annotation/annotation.html.j2
+    cp -pr ${BACKUP_LOC}/annotation.html.j2 ${HOME}/raspberry-noaa-v3/config/annotation/annotation.html.j2
     if [[ $? -eq 0 ]]; then
       loggit "PASS" "Successfully restored annotation.html.j2"
     else
@@ -345,12 +345,12 @@ restore() {
 
   if [[ -f ${BACKUP_LOC}/panel.db ]]; then
     # Keep github original
-    if [[ ! -f ${HOME}/raspberry-noaa-v2/db/panel.db.original ]]; then
-      if [[ -f ${HOME}/raspberry-noaa-v2/db/panel.db ]]; then
-        cp -pr ${HOME}/raspberry-noaa-v2/db/panel.db ${HOME}/raspberry-noaa-v2/db/panel.db.original
+    if [[ ! -f ${HOME}/raspberry-noaa-v3/db/panel.db.original ]]; then
+      if [[ -f ${HOME}/raspberry-noaa-v3/db/panel.db ]]; then
+        cp -pr ${HOME}/raspberry-noaa-v3/db/panel.db ${HOME}/raspberry-noaa-v3/db/panel.db.original
       fi
     fi
-    cp -pr ${BACKUP_LOC}/panel.db ${HOME}/raspberry-noaa-v2/db/panel.db
+    cp -pr ${BACKUP_LOC}/panel.db ${HOME}/raspberry-noaa-v3/db/panel.db
     if [[ $? -eq 0 ]]; then
       loggit "PASS" "Successfully backed up panel.db"
     else
@@ -358,7 +358,7 @@ restore() {
       exit 1
     fi
   else
-    loggit "FAIL" "${HOME}/raspberry-noaa-v2/db/panel.db, not found, aborting..."
+    loggit "FAIL" "${HOME}/raspberry-noaa-v3/db/panel.db, not found, aborting..."
     exit
   fi
 
